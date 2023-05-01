@@ -6,8 +6,12 @@ import Button from '../../components/Button/Button'
 const AdminUsers = () => {
   const [users, setUsers] = useState([])
 
+
+// para paginacion
   const [currentUsers, setCurrentUsers] = useState(0)
   const [totalUsers, setTolalUsers] = useState(0)
+// 
+
 
   const bringUsers = async (from) => {
     const res = await fetch(`http://localhost:8080/api/users?from=${from}`)
@@ -21,7 +25,7 @@ const AdminUsers = () => {
     console.log(data.users[0])
   }
 
-
+// para páginacion
   const handleNexPage = async () => {
     if(totalUsers > currentUsers + 10)
     setCurrentUsers(currentUsers => currentUsers + 10)
@@ -33,12 +37,11 @@ const AdminUsers = () => {
       setCurrentUsers(currentUsers => currentUsers = 0)
     }
   }
-
-
-
   useEffect(() => {
     bringUsers(currentUsers)
   }, [currentUsers])
+// 
+
 
   return (
     <main className='admin-main p-3'>
@@ -64,10 +67,15 @@ const AdminUsers = () => {
             })
         }
       </section>
+
+{/* para paginacion */}
       <div className='mt-5 mb-3 justify-content-end '>
         <Button name='Anterior' function={handlePrevPage}></Button>
         <Button name='Siguiente' function={handleNexPage}></Button>
       </div>
+{/*  */}
+
+
     </main>
   )
 }
